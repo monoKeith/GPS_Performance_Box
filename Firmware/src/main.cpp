@@ -1,9 +1,14 @@
 #include <Arduino.h>
+#include <monitor.h>
+#include <config.h>
 
-void setup() {
-  // put your setup code here, to run once:
+void setup()
+{
+    monitor::setup();
+    monitor::drawBootScreen();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+    // put your main code here, to run repeatedly:
 }
