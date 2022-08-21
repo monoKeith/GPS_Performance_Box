@@ -53,6 +53,9 @@ namespace monitor
         display.setTextAlignment(TEXT_ALIGN_RIGHT);
         display.drawString(128, 20, "Speedometer");
         display.setFont(ArialMT_Plain_10);
+        display.setTextAlignment(TEXT_ALIGN_CENTER);
+        display.drawString(64, 35, "Initializing...");
+        display.setTextAlignment(TEXT_ALIGN_RIGHT);
         display.drawString(128, 50, "BY KEITH");
         // Done
         display.display();
