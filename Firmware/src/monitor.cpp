@@ -77,8 +77,8 @@ namespace monitor
         display.drawString(0, 0, state::displayTime);
         // Date
         display.setFont(ArialMT_Plain_10);
-        display.setTextAlignment(TEXT_ALIGN_LEFT);
-        display.drawString(0, 18, state::displayDate);
+        display.setTextAlignment(TEXT_ALIGN_RIGHT);
+        display.drawString(128, 6, state::displayDate);
         // Done
         display.display();
     }

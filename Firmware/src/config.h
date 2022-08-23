@@ -20,5 +20,6 @@
 
 #define BAUD_DEFAULT 9600
 #define BAUD_TARGET 921600
+#define GNSS_REFRESH_RATE 10
 
 #endif

@@ -34,7 +34,12 @@ namespace gps
         }
         
         // Setup finish
-        Serial.println(F("u-blox setup finished."));
+        Serial.println(F("u-blox connected."));
+
+        if (! myGNSS.setNavigationFrequency(GNSS_REFRESH_RATE))
+        {
+            Serial.println(F("Failed to update GNSS refresh rate"));
+        }
     }
 
     void update() {
@@ -80,7 +85,7 @@ namespace gps
 
             snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d", myGNSS.getYear(), myGNSS.getMonth(), myGNSS.getDay());
             state::setDate(buffer);
-            
+
             snprintf(buffer, sizeof(buffer), "%02d:%02d:%02d", myGNSS.getHour(), myGNSS.getMinute(), myGNSS.getSecond());
             state::setTime(buffer);
         }
