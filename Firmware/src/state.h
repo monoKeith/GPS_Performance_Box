@@ -14,8 +14,14 @@ namespace state
 
     extern bool clockInitialized;
     extern String displayTime;
-    extern void setTime(tm *timeinfo);
+    extern String displayDate;
+    extern void setTime(String time);
+    extern void setDate(String date);
     extern bool timeSyncRequired;
+
+    /* GPS */
+    extern String displayLocation;
+    extern void setLocation(String location);
 
     /* Wi-Fi */
 

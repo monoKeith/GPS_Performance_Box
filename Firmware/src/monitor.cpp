@@ -65,14 +65,20 @@ namespace monitor
     {
         // Clear
         display.clear();
-
         // Uptime
         display.setFont(ArialMT_Plain_10);
         display.setTextAlignment(TEXT_ALIGN_LEFT);
         display.drawString(0, 54, "UPTIME:");
         display.setTextAlignment(TEXT_ALIGN_RIGHT);
         display.drawString(128, 54, String(millis()));
-
+        // Clock
+        display.setFont(ArialMT_Plain_16);
+        display.setTextAlignment(TEXT_ALIGN_LEFT);
+        display.drawString(0, 0, state::displayTime);
+        // Date
+        display.setFont(ArialMT_Plain_10);
+        display.setTextAlignment(TEXT_ALIGN_LEFT);
+        display.drawString(0, 18, state::displayDate);
         // Done
         display.display();
     }

@@ -12,13 +12,25 @@ namespace state
     bool clockInitialized = false;
 
     String displayTime = "--:--";
+    String displayLocation = "Location unknown";
+    String displayDate = "Date unknown";
+
+    void setDate(String date)
+    {
+        displayDate = date;
+    }
 
     // Format time display as string
-    void setTime(tm *timeinfo)
+    void setTime(String time)
     {
-        char buffer[6];
-        snprintf(buffer, sizeof(buffer), "%02d:%02d", timeinfo->tm_hour, timeinfo->tm_min);
-        displayTime = String(buffer);
+        displayTime = time;
+    }
+
+    /* Location */
+
+    void setLocation(String location)
+    {
+        displayLocation = location;
     }
 
     /* Wi-Fi */
@@ -61,7 +73,7 @@ namespace state
 
     /* Display mode */
 
-    DisplayMode displayMode = REGULAR;
+    DisplayMode displayMode = DEBUG;
 
     /* Switch */
 
