@@ -65,12 +65,7 @@ namespace monitor
     {
         // Clear
         display.clear();
-        // Uptime
-        display.setFont(ArialMT_Plain_10);
-        display.setTextAlignment(TEXT_ALIGN_LEFT);
-        display.drawString(0, 54, "UPTIME:");
-        display.setTextAlignment(TEXT_ALIGN_RIGHT);
-        display.drawString(128, 54, String(millis()));
+        
         // Clock
         display.setFont(ArialMT_Plain_16);
         display.setTextAlignment(TEXT_ALIGN_LEFT);
@@ -79,10 +74,21 @@ namespace monitor
         display.setFont(ArialMT_Plain_10);
         display.setTextAlignment(TEXT_ALIGN_RIGHT);
         display.drawString(128, 6, state::displayDate);
+        // Speed
+        display.setFont(Roboto_Mono_Medium_18);
+        display.setTextAlignment(TEXT_ALIGN_RIGHT);
+        display.drawString(128, 20, state::displaySpeed);
         // Location
         display.setFont(ArialMT_Plain_10);
+        display.setTextAlignment(TEXT_ALIGN_CENTER);
+        display.drawString(64, 42, state::displayLocation);
+        // Uptime
+        display.setFont(ArialMT_Plain_10);
         display.setTextAlignment(TEXT_ALIGN_LEFT);
-        display.drawString(0, 18, state::displayLocation);
+        display.drawString(0, 54, "UPTIME:");
+        display.setTextAlignment(TEXT_ALIGN_RIGHT);
+        display.drawString(128, 54, String(millis()));
+
         // Done
         display.display();
     }

@@ -49,16 +49,16 @@ namespace gps
         long latitude = myGNSS.getLatitude();
         long longitude = myGNSS.getLongitude();
         long altitude = myGNSS.getAltitude();
-
         state::setLocation(latitude, longitude, altitude);
 
-        byte SIV = myGNSS.getSIV();
+        long speed = myGNSS.getGroundSpeed();
+        state::setSpeed(speed);
     }
 
     void updateTime()
     {
         char buffer[32];
-        
+
         snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d", myGNSS.getYear(), myGNSS.getMonth(), myGNSS.getDay());
         state::setDate(buffer);
 

@@ -20,6 +20,10 @@ namespace state
     extern long latitude, longitude, altitude;
     extern String displayLocation;
     extern void setLocation(long lat, long lon, long alt);
+    extern long speed;
+    extern float speedKPH;
+    extern String displaySpeed;
+    extern void setSpeed(long s);
 
     /* Wi-Fi */
 

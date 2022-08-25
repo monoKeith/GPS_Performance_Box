@@ -24,6 +24,9 @@ namespace state
     long longitude = 0;
     String displayLocation = "Location unknown";
     long altitude = 0; // altitude in mm
+    long speed = 0; // speed in mm/s
+    float speedKPH = 0;
+    String displaySpeed = "- KM/h";
 
     void setLocation(long lat, long lon, long alt)
     {
@@ -38,6 +41,18 @@ namespace state
         if (alt != altitude)
         {
             altitude = alt;
+        }
+    }
+
+    void setSpeed(long s)
+    {
+        if (s != speed)
+        {
+            speed = s;
+            speedKPH = 0.0036f * s;
+            char buffer[16];
+            snprintf(buffer, sizeof(buffer), "%.02f KPH", speedKPH);
+            displaySpeed = buffer;
         }
     }
 
