@@ -8,20 +8,18 @@
 namespace state
 {
 
-    /* Clock synchronization */
+    /* Clock Display */
 
-    extern String lastSyncTime;
-
-    extern bool clockInitialized;
     extern String displayTime;
     extern String displayDate;
     extern void setTime(String time);
     extern void setDate(String date);
-    extern bool timeSyncRequired;
 
     /* GPS */
+
+    extern long latitude, longitude, altitude;
     extern String displayLocation;
-    extern void setLocation(String location);
+    extern void setLocation(long lat, long lon, long alt);
 
     /* Wi-Fi */
 
@@ -44,10 +42,6 @@ namespace state
         OFF
     };
     extern DisplayMode displayMode;
-
-    /* Switch */
-
-    extern bool switchOn;
 
 }
 

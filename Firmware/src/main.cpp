@@ -11,10 +11,28 @@ void monitorThread(void *pvParameters)
 {
     while (true)
     {
-        // Delay for 50ms, ~14 fps
-        delay(50);
         // Refresh monitor, takes about 20ms?
         monitor::refresh();
+        // Delay 50ms, ~14 fps
+        delay(50);
+    }
+}
+
+void gpsLocationThread(void *pvParameters)
+{
+    while (true)
+    {
+        gps::updateLocation();
+        delay(20);
+    }
+}
+
+void gpsTimeThread(void *pvParameters)
+{
+    while (true)
+    {
+        gps::updateTime();
+        delay(200);
     }
 }
 
@@ -23,19 +41,15 @@ void setup()
     // Boot screen
     monitor::setup();
     monitor::drawBootScreen();
-    // Load GPS
+    // Setup GPS
     gps::setup();
-    // Run tasks
-    xTaskCreate(monitorThread,
-                "MonitorThread",
-                STACK_SIZE_SMALL,
-                NULL,
-                2,
-                NULL);
+    // Start Threads
+    xTaskCreate(gpsLocationThread, "GPS Location Thread", STACK_SIZE_SMALL, NULL, 10, NULL);
+    xTaskCreate(gpsTimeThread, "GPS Time Thread", STACK_SIZE_SMALL, NULL, 5, NULL);
+    xTaskCreate(monitorThread, "Monitor Thread", STACK_SIZE_SMALL, NULL, 2, NULL);
 }
 
 void loop()
 {
-    gps::update();
+    delay(500);
 }
-

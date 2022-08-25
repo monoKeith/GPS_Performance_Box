@@ -5,14 +5,7 @@ namespace state
 
     /* Clock synchronization */
 
-    bool timeSyncRequired = true;
-
-    String lastSyncTime = "never";
-
-    bool clockInitialized = false;
-
-    String displayTime = "--:--";
-    String displayLocation = "Location unknown";
+    String displayTime = "--:--:--";
     String displayDate = "Date unknown";
 
     void setDate(String date)
@@ -20,7 +13,6 @@ namespace state
         displayDate = date;
     }
 
-    // Format time display as string
     void setTime(String time)
     {
         displayTime = time;
@@ -28,25 +20,37 @@ namespace state
 
     /* Location */
 
-    void setLocation(String location)
+    long latitude = 0;
+    long longitude = 0;
+    String displayLocation = "Location unknown";
+    long altitude = 0; // altitude in mm
+
+    void setLocation(long lat, long lon, long alt)
     {
-        displayLocation = location;
+        if (lat != latitude || lon != longitude)
+        {
+            char buffer[32];
+            snprintf(buffer, sizeof(buffer), "%ld, %ld", lat, lon);
+            latitude = lat;
+            longitude = lon;
+            displayLocation = buffer;
+        }
+        if (alt != altitude)
+        {
+            altitude = alt;
+        }
     }
 
     /* Wi-Fi */
 
     bool wirelessConnected = false;
-
     String localIP = "unknown";
-
     String wirelessRSSI = "unknown";
 
     /* Message display */
 
     bool showMsg = false;
-
     String displayMsg = "";
-
     unsigned long messageEndTime = 0;
 
     // Display a message on screen
@@ -74,9 +78,5 @@ namespace state
     /* Display mode */
 
     DisplayMode displayMode = DEBUG;
-
-    /* Switch */
-
-    bool switchOn = false;
 
 };

@@ -79,6 +79,10 @@ namespace monitor
         display.setFont(ArialMT_Plain_10);
         display.setTextAlignment(TEXT_ALIGN_RIGHT);
         display.drawString(128, 6, state::displayDate);
+        // Location
+        display.setFont(ArialMT_Plain_10);
+        display.setTextAlignment(TEXT_ALIGN_LEFT);
+        display.drawString(0, 18, state::displayLocation);
         // Done
         display.display();
     }

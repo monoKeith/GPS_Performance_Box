@@ -9,7 +9,8 @@
 namespace gps
 {
     extern void setup();
-    extern void update();
+    extern void updateLocation();
+    extern void updateTime();
 
     extern long lastTime;
 };

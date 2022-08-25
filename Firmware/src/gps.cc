@@ -5,9 +5,8 @@ namespace gps
 
     SFE_UBLOX_GNSS myGNSS;
 
-    long lastTime = 0;
-
-    void setup() {
+    void setup()
+    {
         // debug serial port
         Serial.begin(BAUD_DEBUG);
 
@@ -15,11 +14,13 @@ namespace gps
 
         // conenct to module on serial 1
         Serial1.begin(BAUD_DEFAULT);
-        while (!myGNSS.begin(Serial1)) {
+        while (!myGNSS.begin(Serial1))
+        {
             // Try target baud rate
             Serial.println(F("Default baud rate failed, trying target baud rate."));
             Serial1.updateBaudRate(BAUD_TARGET);
-            if (myGNSS.begin(Serial1)) {
+            if (myGNSS.begin(Serial1))
+            {
                 baudRateNeedUpdate = false;
                 break;
             }
@@ -27,67 +28,41 @@ namespace gps
             delay(5000);
         }
 
-        if (baudRateNeedUpdate) {
+        if (baudRateNeedUpdate)
+        {
             // set baud rate to target
             myGNSS.setSerialRate(BAUD_TARGET);
             Serial1.updateBaudRate(BAUD_TARGET);
         }
-        
+
         // Setup finish
         Serial.println(F("u-blox connected."));
 
-        if (! myGNSS.setNavigationFrequency(GNSS_REFRESH_RATE))
+        if (!myGNSS.setNavigationFrequency(GNSS_REFRESH_RATE))
         {
             Serial.println(F("Failed to update GNSS refresh rate"));
         }
     }
 
-    void update() {
+    void updateLocation()
+    {
+        long latitude = myGNSS.getLatitude();
+        long longitude = myGNSS.getLongitude();
+        long altitude = myGNSS.getAltitude();
 
-        if (millis() - lastTime > 20)
-        {
-            lastTime = millis();
+        state::setLocation(latitude, longitude, altitude);
 
-            long latitude = myGNSS.getLatitude();
-            Serial.print(F("Lat: "));
-            Serial.print(latitude);
+        byte SIV = myGNSS.getSIV();
+    }
 
-            long longitude = myGNSS.getLongitude();
-            Serial.print(F(" Long: "));
-            Serial.print(longitude);
-            Serial.print(F(" (degrees * 10^-7)"));
+    void updateTime()
+    {
+        char buffer[32];
+        
+        snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d", myGNSS.getYear(), myGNSS.getMonth(), myGNSS.getDay());
+        state::setDate(buffer);
 
-
-
-            long altitude = myGNSS.getAltitude();
-            Serial.print(F(" Alt: "));
-            Serial.print(altitude);
-            Serial.print(F(" (mm)"));
-
-            byte SIV = myGNSS.getSIV();
-            Serial.print(F(" SIV: "));
-            Serial.print(SIV);
-
-            Serial.println();
-            Serial.print(myGNSS.getYear());
-            Serial.print("-");
-            Serial.print(myGNSS.getMonth());
-            Serial.print("-");
-            Serial.print(myGNSS.getDay());
-            Serial.print(" ");
-            Serial.print(myGNSS.getHour());
-            Serial.print(":");
-            Serial.print(myGNSS.getMinute());
-            Serial.print(":");
-            Serial.print(myGNSS.getSecond());
-
-            char buffer[32];
-
-            snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d", myGNSS.getYear(), myGNSS.getMonth(), myGNSS.getDay());
-            state::setDate(buffer);
-
-            snprintf(buffer, sizeof(buffer), "%02d:%02d:%02d", myGNSS.getHour(), myGNSS.getMinute(), myGNSS.getSecond());
-            state::setTime(buffer);
-        }
+        snprintf(buffer, sizeof(buffer), "%02d:%02d:%02d", myGNSS.getHour(), myGNSS.getMinute(), myGNSS.getSecond());
+        state::setTime(buffer);
     }
 }
