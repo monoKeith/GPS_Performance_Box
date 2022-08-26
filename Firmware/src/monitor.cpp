@@ -65,7 +65,7 @@ namespace monitor
     {
         // Clear
         display.clear();
-        
+
         // Clock
         display.setFont(ArialMT_Plain_16);
         display.setTextAlignment(TEXT_ALIGN_LEFT);
@@ -102,10 +102,32 @@ namespace monitor
 
         if (msg.isEmpty())
         {
-            // Only display time, no message
-            display.setFont(Roboto_Mono_Medium_35);
-            display.setTextAlignment(TEXT_ALIGN_CENTER_BOTH);
-            display.drawString(64, 32 + SCREEN_Y_OFFSET, state::displayTime);
+            // Target speed
+            display.setFont(ArialMT_Plain_10);
+            display.setTextAlignment(TEXT_ALIGN_LEFT);
+            display.drawString(0, 0, "TARGET: " + state::getTimer()->getTargetSpeed());
+            // Clock
+            display.setFont(ArialMT_Plain_10);
+            display.setTextAlignment(TEXT_ALIGN_RIGHT);
+            display.drawString(128, 0, state::displayTime);
+            // Speed
+            display.setFont(ArialMT_Plain_16);
+            display.setTextAlignment(TEXT_ALIGN_RIGHT);
+            display.drawString(128, 11, state::displaySpeed);
+            // Duration
+            display.setFont(ArialMT_Plain_24);
+            display.setTextAlignment(TEXT_ALIGN_RIGHT);
+            display.drawString(128, 28, state::getTimer()->getDuration());
+            // Separate
+            display.drawHorizontalLine(0, 53, 128);
+            // Previous
+            display.setFont(ArialMT_Plain_10);
+            display.setTextAlignment(TEXT_ALIGN_LEFT);
+            display.drawString(0, 54, "PREV: " + state::getTimer()->getPrevious());
+            // Best
+            display.setFont(ArialMT_Plain_10);
+            display.setTextAlignment(TEXT_ALIGN_LEFT);
+            display.drawString(64, 54, "BEST: " + state::getTimer()->getBest());
         }
         else
         {

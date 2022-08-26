@@ -2,6 +2,7 @@
 #include <monitor.h>
 #include <gps.h>
 #include <config.h>
+#include "state.h"
 
 // Stack sizes
 #define STACK_SIZE_SMALL 32768
@@ -41,6 +42,8 @@ void setup()
     // Boot screen
     monitor::setup();
     monitor::drawBootScreen();
+    // Timers
+    state::initTimers();
     // Setup GPS
     gps::setup();
     // Start Threads

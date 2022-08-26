@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "time.h"
 #include "config.h"
+#include "timer/timer.h"
 
 namespace state
 {
@@ -46,6 +47,14 @@ namespace state
         OFF
     };
     extern DisplayMode displayMode;
+
+    /* Timer */
+
+    extern int displayTimerIndex;       // Which timer to display?
+    extern Timer *timers[];             // Arr of timers
+    extern void initTimers();
+    extern void updateTimersSpeed();    // state internal use
+    extern Timer *getTimer();           // get timer to display
 
 }
 

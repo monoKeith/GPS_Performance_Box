@@ -46,14 +46,17 @@ namespace state
 
     void setSpeed(long s)
     {
-        if (s != speed)
+        if (s == speed)
         {
-            speed = s;
-            speedKPH = 0.0036f * s;
-            char buffer[16];
-            snprintf(buffer, sizeof(buffer), "%.02f KPH", speedKPH);
-            displaySpeed = buffer;
+            return;
         }
+        speed = s;
+        speedKPH = 0.0036f * s;
+        char buffer[16];
+        snprintf(buffer, sizeof(buffer), "%.02f KPH", speedKPH);
+        displaySpeed = buffer;
+        // Update timers
+        updateTimersSpeed();
     }
 
     /* Wi-Fi */
@@ -92,6 +95,30 @@ namespace state
 
     /* Display mode */
 
-    DisplayMode displayMode = DEBUG;
+    DisplayMode displayMode = REGULAR;
+    
+    /* Timers */
+
+    int displayTimerIndex = 0;
+    double targetSpeeds[] = {60, 80, 100};
+    static const int NUM_SPEED = 3;
+    Timer *timers[NUM_SPEED];
+
+    void initTimers() {
+        for (int i = 0; i < NUM_SPEED; i ++) {
+            timers[i] = new Timer(targetSpeeds[i]);
+        }
+    }
+
+    void updateTimersSpeed() {
+        for (int i = 0; i < NUM_SPEED; i ++) {
+            timers[i]->updateSpeed(speedKPH);
+        }
+    }
+
+    Timer *getTimer()
+    {
+        return timers[displayTimerIndex];
+    }
 
 };
