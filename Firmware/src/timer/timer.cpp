@@ -46,7 +46,7 @@ void Timer::updateSpeed(double newSpeed)
         break;
 
     case TICKING:
-        duration = startTime - millis();
+        duration = millis() - startTime;
         // Reset if car stopped before achieving target speed
         if (!rolling())
         {
