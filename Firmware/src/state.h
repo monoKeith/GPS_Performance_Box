@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "time.h"
 #include "config.h"
+#include "ioControl.h"
 #include "timer/timer.h"
 
 namespace state
@@ -43,18 +44,23 @@ namespace state
     enum DisplayMode
     {
         REGULAR,
-        DEBUG,
-        OFF
+        DEBUG
     };
+
     extern DisplayMode displayMode;
 
     /* Timer */
-
+    static const double targetSpeeds[] = {60, 80, 100};
+    static const int NUM_SPEED = 3;
     extern int displayTimerIndex;       // Which timer to display?
     extern Timer *timers[];             // Arr of timers
     extern void initTimers();
     extern void updateTimersSpeed();    // state internal use
     extern Timer *getTimer();           // get timer to display
+
+    /* Update */
+
+    extern void refresh();
 
 }
 

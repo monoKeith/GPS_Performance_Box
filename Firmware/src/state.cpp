@@ -24,7 +24,7 @@ namespace state
     long longitude = 0;
     String displayLocation = "Location unknown";
     long altitude = 0; // altitude in mm
-    long speed = 0; // speed in mm/s
+    long speed = 0;    // speed in mm/s
     float speedKPH = 0;
     String displaySpeed = "- KM/h";
 
@@ -96,22 +96,51 @@ namespace state
     /* Display mode */
 
     DisplayMode displayMode = REGULAR;
-    
+
+    void updateDisplayMode()
+    {
+        if (!ioControl::changeMode())
+        {
+            return;
+        }
+        // Next display mode
+        switch (displayMode)
+        {
+        case DEBUG:
+            displayMode = REGULAR;
+            displayTimerIndex = 0;
+            break;
+        case REGULAR:
+            int newTimerIndex = displayTimerIndex + 1;
+            if (newTimerIndex < NUM_SPEED)
+            {
+                displayTimerIndex = newTimerIndex;
+            }
+            else
+            {
+                displayMode = DEBUG;
+            }
+            break;
+        }
+    }
+
     /* Timers */
 
     int displayTimerIndex = 0;
-    double targetSpeeds[] = {60, 80, 100};
-    static const int NUM_SPEED = 3;
     Timer *timers[NUM_SPEED];
 
-    void initTimers() {
-        for (int i = 0; i < NUM_SPEED; i ++) {
+    void initTimers()
+    {
+        for (int i = 0; i < NUM_SPEED; i++)
+        {
             timers[i] = new Timer(targetSpeeds[i]);
         }
     }
 
-    void updateTimersSpeed() {
-        for (int i = 0; i < NUM_SPEED; i ++) {
+    void updateTimersSpeed()
+    {
+        for (int i = 0; i < NUM_SPEED; i++)
+        {
             timers[i]->updateSpeed(speedKPH);
         }
     }
@@ -119,6 +148,13 @@ namespace state
     Timer *getTimer()
     {
         return timers[displayTimerIndex];
+    }
+
+    /* Update */
+
+    void refresh()
+    {
+        updateDisplayMode();
     }
 
 };

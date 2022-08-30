@@ -12,6 +12,7 @@
         "random": "cpp",
         "initializer_list": "cpp",
         "cstddef": "cpp",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "new": "cpp"
     }
 }

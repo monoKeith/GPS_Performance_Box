@@ -3,6 +3,7 @@
 #include <gps.h>
 #include <config.h>
 #include "state.h"
+#include "ioControl.h"
 
 // Stack sizes
 #define STACK_SIZE_SMALL 32768
@@ -39,6 +40,8 @@ void gpsTimeThread(void *pvParameters)
 
 void setup()
 {
+    // IO
+    ioControl::setup();
     // Boot screen
     monitor::setup();
     monitor::drawBootScreen();
@@ -54,5 +57,6 @@ void setup()
 
 void loop()
 {
-    delay(500);
+    state::refresh();
+    delay(50);
 }

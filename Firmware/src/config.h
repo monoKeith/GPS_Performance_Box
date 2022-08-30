@@ -26,4 +26,10 @@
 
 #define ROLLING_THRESHOLD 1
 
+/* Buttons */
+
+#define DEBOUNCE_MS 150
+
+#define MODE_BUTTON_PIN 0   // GPIO 0 (boot button)
+
 #endif
