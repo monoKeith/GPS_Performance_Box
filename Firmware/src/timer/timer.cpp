@@ -12,12 +12,19 @@ String toString(unsigned long value)
     return buffer;
 }
 
+String toStringInt(double value)
+{
+    char buffer[16];
+    snprintf(buffer, sizeof(buffer), "%i", (int)value);
+    return buffer;
+}
+
 Timer::Timer(double targetSpeed)
 {
     this->targetSpeed = targetSpeed;
     this->state = WAITING;
     this->noRecord = true;
-    this->targetSpeed_s = targetSpeed;
+    this->targetSpeed_s = toStringInt(targetSpeed);
 }
 
 Timer::~Timer()
@@ -35,6 +42,13 @@ void Timer::updateSpeed(double newSpeed)
 
     switch (state)
     {
+    case RESET:
+        if (!rolling())
+        {
+            // Reset timer when car stopped
+            state = WAITING;
+        }
+        break;
     case WAITING:
         duration = 0;
         if (rolling())
@@ -94,11 +108,15 @@ String Timer::getBest()
 
 String Timer::getDuration()
 {
+    if (state == RESET) {
+        return "RESET";
+    }
+
     return (noRecord && state == WAITING) ? UNAVAILABLE_STR : toString(duration);
 }
 
 
 void Timer::reset(){
-    this->state = ACHIEVED;
+    this->state = RESET;
     this->noRecord = true;
 }

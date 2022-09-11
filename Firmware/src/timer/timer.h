@@ -17,7 +17,8 @@ public:
     enum TimerState {
         WAITING,    // Waiting to start timer
         TICKING,    // Timer started
-        ACHIEVED    // Timer stopped, result available
+        ACHIEVED,   // Timer stopped, result available
+        RESET       // Timer got resetted
     };
     
     String getTargetSpeed();

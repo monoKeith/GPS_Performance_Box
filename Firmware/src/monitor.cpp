@@ -105,19 +105,21 @@ namespace monitor
             // Target speed
             display.setFont(ArialMT_Plain_10);
             display.setTextAlignment(TEXT_ALIGN_LEFT);
-            display.drawString(0, 0, "TARGET: " + state::getTimer()->getTargetSpeed());
+            display.drawString(0, 0, "TARGET");
+            display.setFont(ArialMT_Plain_24);
+             display.drawString(0, 11, state::getTimer()->getTargetSpeed());
             // Clock
             display.setFont(ArialMT_Plain_10);
             display.setTextAlignment(TEXT_ALIGN_RIGHT);
             display.drawString(128, 0, state::displayTime);
-            // Speed
-            display.setFont(ArialMT_Plain_16);
-            display.setTextAlignment(TEXT_ALIGN_RIGHT);
-            display.drawString(128, 11, state::displaySpeed);
             // Duration
             display.setFont(ArialMT_Plain_24);
             display.setTextAlignment(TEXT_ALIGN_RIGHT);
-            display.drawString(128, 28, state::getTimer()->getDuration());
+            display.drawString(128, 11, state::getTimer()->getDuration());
+            // Speed
+            display.setFont(ArialMT_Plain_16);
+            display.setTextAlignment(TEXT_ALIGN_RIGHT);
+            display.drawString(128, 36, state::displaySpeed);
             // Separate
             display.drawHorizontalLine(0, 53, 128);
             // Previous
