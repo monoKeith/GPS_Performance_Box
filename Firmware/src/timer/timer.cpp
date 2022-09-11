@@ -8,7 +8,7 @@ String toString(unsigned long value)
     char buffer[16];
     float time = value;
     time = time /1000;
-    snprintf(buffer, sizeof(buffer), "%.02f", time);
+    snprintf(buffer, sizeof(buffer), "%.01f", time);
     return buffer;
 }
 
