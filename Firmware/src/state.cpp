@@ -97,12 +97,8 @@ namespace state
 
     DisplayMode displayMode = REGULAR;
 
-    void updateDisplayMode()
+    void nextDisplayMode()
     {
-        if (!ioControl::changeMode())
-        {
-            return;
-        }
         // Next display mode
         switch (displayMode)
         {
@@ -113,6 +109,29 @@ namespace state
         case REGULAR:
             int newTimerIndex = displayTimerIndex + 1;
             if (newTimerIndex < NUM_SPEED)
+            {
+                displayTimerIndex = newTimerIndex;
+            }
+            else
+            {
+                displayMode = DEBUG;
+            }
+            break;
+        }
+    }
+
+    void prevDisplayMode()
+    {
+        // Previous display mode
+        switch (displayMode)
+        {
+        case DEBUG:
+            displayMode = REGULAR;
+            displayTimerIndex = NUM_SPEED - 1;
+            break;
+        case REGULAR:
+            int newTimerIndex = displayTimerIndex - 1;
+            if (newTimerIndex >= 0)
             {
                 displayTimerIndex = newTimerIndex;
             }
@@ -150,11 +169,43 @@ namespace state
         return timers[displayTimerIndex];
     }
 
+    // Reset current timer
+    void rstCurTimer()
+    {
+        switch (displayMode)
+        {
+        case DEBUG:
+            // do nothing
+            break;
+        case REGULAR:
+            // reset
+            getTimer()->reset();
+        }
+    }
+
     /* Update */
 
     void refresh()
     {
-        updateDisplayMode();
+
+        switch (ioControl::buttonPressed())
+        {
+        case ioControl::RED:
+            rstCurTimer();
+            break;
+
+        case ioControl::YELLOW:
+            prevDisplayMode();
+            break;
+
+        case ioControl::GREEN:
+            nextDisplayMode();
+            break;
+
+        default:
+            // do nothing
+            break;
+        }
     }
 
 };

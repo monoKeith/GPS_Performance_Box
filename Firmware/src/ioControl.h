@@ -7,10 +7,18 @@
 
 namespace ioControl
 {
+    enum ButtonType
+    {
+        RED,
+        YELLOW,
+        GREEN,
+        NONE
+    };
+
     // Must call to register interruptions
     extern void setup();
 
-    extern bool changeMode(); // if Requested to change mode
+    extern ButtonType buttonPressed(); //
 
 };
 

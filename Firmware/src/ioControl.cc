@@ -2,40 +2,62 @@
 
 namespace ioControl
 {
-    
 
     long lastPressTime = 0;
 
-    bool changeMode_r = false;
+    bool pressed = false;
+    ButtonType button;
 
-    void modeBtnHandler()
+    void btnHandler(ButtonType type)
     {
-        // Debounce
+        // Debounce by limiting trigger rate
         long currentTime = millis();
         long deltaT = currentTime - lastPressTime;
         if (deltaT > DEBOUNCE_MS)
         {
             // Trigger
-            changeMode_r = true;
+            button = type;
+            pressed = true;
         }
         lastPressTime = currentTime;
     }
 
-    bool changeMode()
+    void press_red()
     {
-        if (changeMode_r)
-        {
-            changeMode_r = false;
-            return true;
-        }
-        return false;
+        btnHandler(RED);
     }
-    
+
+    void press_yellow()
+    {
+        btnHandler(YELLOW);
+    }
+
+    void press_green()
+    {
+        btnHandler(GREEN);
+    }
+
+    ButtonType buttonPressed()
+    {
+        if (pressed)
+        {
+            pressed = false;
+            return button;
+        }
+        return NONE;
+    }
+
     // Initialize interruption
     void setup()
     {
-        // White
-        pinMode(MODE_BUTTON_PIN, INPUT_PULLUP);
-        attachInterrupt(MODE_BUTTON_PIN, modeBtnHandler, FALLING);
+        // Red
+        pinMode(BTN_RED, INPUT_PULLUP);
+        attachInterrupt(BTN_RED, press_red, FALLING);
+        // Yellow
+        pinMode(BTN_YELLOW, INPUT_PULLUP);
+        attachInterrupt(BTN_YELLOW, press_yellow, FALLING);
+        // Green
+        pinMode(BTN_GREEN, INPUT_PULLUP);
+        attachInterrupt(BTN_GREEN, press_green, FALLING);
     }
 };

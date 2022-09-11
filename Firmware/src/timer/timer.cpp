@@ -96,3 +96,9 @@ String Timer::getDuration()
 {
     return (noRecord && state == WAITING) ? UNAVAILABLE_STR : toString(duration);
 }
+
+
+void Timer::reset(){
+    this->state = ACHIEVED;
+    this->noRecord = true;
+}

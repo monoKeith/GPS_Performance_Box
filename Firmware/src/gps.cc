@@ -7,19 +7,16 @@ namespace gps
 
     void setup()
     {
-        // debug serial port
-        Serial.begin(BAUD_DEBUG);
-
         bool baudRateNeedUpdate = true;
 
         // conenct to module on serial 1
-        Serial1.begin(BAUD_DEFAULT);
-        while (!myGNSS.begin(Serial1))
+        Serial.begin(BAUD_DEFAULT);
+        while (!myGNSS.begin(Serial))
         {
             // Try target baud rate
             Serial.println(F("Default baud rate failed, trying target baud rate."));
-            Serial1.updateBaudRate(BAUD_TARGET);
-            if (myGNSS.begin(Serial1))
+            Serial.updateBaudRate(BAUD_TARGET);
+            if (myGNSS.begin(Serial))
             {
                 baudRateNeedUpdate = false;
                 break;
@@ -32,7 +29,7 @@ namespace gps
         {
             // set baud rate to target
             myGNSS.setSerialRate(BAUD_TARGET);
-            Serial1.updateBaudRate(BAUD_TARGET);
+            Serial.updateBaudRate(BAUD_TARGET);
         }
 
         // Setup finish

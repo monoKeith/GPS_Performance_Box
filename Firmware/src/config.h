@@ -3,8 +3,12 @@
 
 /* GPIO Pins */
 
-#define SDA_PIN 4
-#define SCL_PIN 5
+#define SDA_PIN 37
+#define SCL_PIN 36
+
+#define BTN_RED 4
+#define BTN_YELLOW 5
+#define BTN_GREEN 6
 
 #define BAUD_DEBUG 115200
 

@@ -25,6 +25,8 @@ public:
     String getBest();
     String getDuration();
 
+    void reset();
+
 private:
     String targetSpeed_s;
     bool noRecord;
