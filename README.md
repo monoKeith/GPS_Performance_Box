@@ -1,5 +1,11 @@
 # GPS_Performance_Box
-Performance box based on ublox-GPS-module and Arduino
+Performance box based on ublox-GPS-module and ESP32 S2
+
+## Video
+
+[0 - 100 KPH test](https://youtu.be/5jb0r1BLMyU)
+
+## Pics
 
 ![Front](pictures/Front.jpeg)
 
